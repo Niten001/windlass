@@ -1,0 +1,9 @@
+{
+  "name": "windlass",
+  "version": "1.0.0",
+  "description": "A javascript web framework based on the HTML5 specification.",
+  "main": "windlass.js",
+  "scripts": {},
+  "author": "Timothy Martin",
+  "license": "MIT"
+}
