@@ -13,4 +13,4 @@ const Templates = {
     Default,
 };
 
-module.exports = { Templates };
+module.exports = Templates;

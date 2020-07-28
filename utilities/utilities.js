@@ -14,4 +14,4 @@ const Utilities = {
     Server,
 };
 
-module.exports = { Utilities };
+module.exports = Utilities;

@@ -37,4 +37,4 @@ const Components = {
     Typography,
 };
 
-module.exports = { Components };
+module.exports = Components;

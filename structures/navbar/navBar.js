@@ -1,5 +1,5 @@
-const Search = require("../search/search.js");
-const Button = require("../button/button.js");
+const Search = require("../search/search");
+const Button = require("../../components/input/button/button");
 
 module.exports = class NavBar {
     constructor() { }

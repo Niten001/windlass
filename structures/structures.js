@@ -33,4 +33,4 @@ const Structures = {
     Search,
 };
 
-module.exports = { Structures };
+module.exports = Structures;

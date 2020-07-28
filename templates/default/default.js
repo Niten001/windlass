@@ -61,11 +61,9 @@ class DEFAULT_TEMPLATE_PROPERTIES {
     }
 }
 
-function defaultTemplate(props) {
+function DefaultTemplate(props) {
     try {
-        if (typeof props !== "object" || props instanceof Object) {
-            throw new TypeError(`${props} on Text is not a valid Object type.`);
-        } else {
+        if (typeof props === "object" || props instanceof Object) {
             (props instanceof DEFAULT_TEMPLATE_PROPERTIES) ? (this.props = props) : (this.props = new DEFAULT_TEMPLATE_PROPERTIES(props));
             return `
                 <!DOCTYPE html>
@@ -80,13 +78,15 @@ function defaultTemplate(props) {
                     <body>${this.props.content}</body>
                 </html>
             `;
+        } else {
+            throw new TypeError(`${props} on Text is not a valid Object type.`);
         }
     } catch (e) {
-        console.error(`${e.name}: ${e.message}`);
+        console.error(e);
     }
 }
 
 module.exports = {
     DEFAULT_TEMPLATE_PROPERTIES,
-    defaultTemplate,
+    DefaultTemplate,
 };

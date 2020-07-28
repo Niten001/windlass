@@ -15,4 +15,4 @@ const Extensions = {
     Parallax,
 };
 
-module.exports = { Extensions };
+module.exports = Extensions;

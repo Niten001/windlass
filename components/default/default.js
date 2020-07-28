@@ -58,7 +58,7 @@ class DEFAULT_PROPERTIES {
                 throw new TypeError(`${props.class} on DEFAULT_PROPERTIES.class is not a valid String type.`);
             }
         } catch (e) {
-            console.error(`${e.name}: ${e.message}`);
+            console.error(e);
         }
 
         // content
@@ -71,7 +71,7 @@ class DEFAULT_PROPERTIES {
                 throw new TypeError(`${props.content} on DEFAULT_PROPERTIES.content is not a valid String type.`);
             }
         } catch (e) {
-            console.error(`${e.name}: ${e.message}`);
+            console.error(e);
         }
             
         // direction
@@ -84,7 +84,7 @@ class DEFAULT_PROPERTIES {
                 throw new TypeError(`${props.direction} on DEFAULT_PROPERTIES.direction is not a valid DIRECTION_VALUES type.`);
             }
         } catch (e) {
-            console.error(`${e.name}: ${e.message}`);
+            console.error(e);
         }
 
         // id
@@ -97,7 +97,7 @@ class DEFAULT_PROPERTIES {
                 throw new TypeError(`${props.id} on DEFAULT_PROPERTIES.id is not a valid String type.`);
             }
         } catch (e) {
-            console.error(`${e.name}: ${e.message}`);
+            console.error(e);
         }
 
         // language
@@ -110,7 +110,7 @@ class DEFAULT_PROPERTIES {
                 throw new TypeError(`${props.language} on DEFAULT_PROPERTIES.language is not a valid String type.`);
             }
         } catch (e) {
-            console.error(`${e.name}: ${e.message}`);
+            console.error(e);
         }
 
         // style
@@ -123,7 +123,7 @@ class DEFAULT_PROPERTIES {
                 throw new TypeError(`${props.style} on DEFAULT_PROPERTIES.style is not a valid String type.`);
             }
         } catch (e) {
-            console.error(`${e.name}: ${e.message}`);
+            console.error(e);
         }
 
         // title
@@ -136,7 +136,7 @@ class DEFAULT_PROPERTIES {
                 throw new TypeError(`${props.title} on DEFAULT_PROPERTIES.title is not a valid String type.`);
             }
         } catch (e) {
-            console.error(`${e.name}: ${e.message}`);
+            console.error(e);
         }
 
         // stylelist
@@ -156,7 +156,7 @@ class DEFAULT_PROPERTIES {
                 throw new TypeError(`${this.styleList} on combineStyles() is not a valid Array type.`);
             }
         } catch (e) {
-            console.error(`${e.name}: ${e.message}`);
+            console.error(e);
         }
     }
 }
