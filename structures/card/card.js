@@ -7,7 +7,7 @@ module.exports = class Card {
         let duration = "";
         const hours = Math.floor(this.metadata.duration / 3600);
         let minutes = Math.floor((this.metadata.duration - (hours * 3600)) / 60);
-        let seconds = (this.metadata.duration - (hours * 3600) - (minutes * 60))
+        let seconds = (this.metadata.duration - (hours * 3600) - (minutes * 60));
         minutes = ((minutes < 10) && (hours != 0)) ?  "0" + minutes : minutes;
         seconds = (seconds < 10) ?  "0" + seconds : seconds;
         duration = (hours != 0) ? hours + ":" + minutes + ":" + seconds : minutes + ":" + seconds;
@@ -56,11 +56,11 @@ module.exports = class Card {
                 </div>
                 <div class="details">
                     <div class="title">` + this.metadata.title + `</div>
-                    <div class="content-creator youtube-link" data-url="` + this.metadata.uploader_url + `">` + this.metadata.uploader + `</div>
-                    <div class="views">` + views + ' views' + `</div>
+                    <div class="content-creator youtube-link" data-url="` + this.metadata.uploader_url + "\">" + this.metadata.uploader + `</div>
+                    <div class="views">` + views + " views" + `</div>
                     <div class="published">` + timeSinceUpload + `</div>
                 </div>
             </div>
         `;
     }
-}
+};

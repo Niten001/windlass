@@ -1,6 +1,8 @@
 //  Color
 const INITIAL = "initial";
 const INHERIT = "inherit";
+const TRANSPARENT = "transparent";
+const CURRENT_COLOR = "currentcolor";
 //  Neutrals
 const WHITE = "#FFFFFF";
 const BLACK = "#000000";
@@ -20,7 +22,7 @@ const GREY = {
     800:        "#424142",
     900:        "#202020",
     BLACK:      BLACK,
-}
+};
 const COOL_GREY = {
     INITIAL:    INITIAL,
     INHERIT:    INHERIT,
@@ -37,7 +39,7 @@ const COOL_GREY = {
     800:        "#3B3F56",
     900:        "#191E34",
     BLACK:      BLACK,
-}
+};
 const WARM_GREY = {
     INITIAL:    INITIAL,
     INHERIT:    INHERIT,
@@ -54,7 +56,7 @@ const WARM_GREY = {
     800:        "#493F2E",
     900:        "#271E0C",
     BLACK:      BLACK,
-}
+};
 
 // Colors
 const BROWN = {
@@ -69,7 +71,7 @@ const BROWN = {
     700:        "#63423A",
     800:        "#4C322D",
     900:        "#331F1B",
-}
+};
 const RED = {
     DEFAULT:    "#E80602",
     50:         "#FCC5C2",
@@ -82,7 +84,7 @@ const RED = {
     700:        "#960404",
     800:        "#6D0202",
     900:        "#490001",
-}
+};
 const CRIMSON = {
     DEFAULT:    "#D73800",
     50:         "#FFD0BF",
@@ -95,7 +97,7 @@ const CRIMSON = {
     700:        "#A02101",
     800:        "#7A1901",
     900:        "#4F0B00",
-}
+};
 const ORANGE = {
     DEFAULT:    "#F97611",
     50:         "#FCDFC2",
@@ -108,7 +110,7 @@ const ORANGE = {
     700:        "#A83E01",
     800:        "#7C2B00",
     900:        "#5E2100",
-}
+};
 const AMBER = {
     DEFAULT:    "#FCB30A",
     50:         "#FCF0C4",
@@ -121,7 +123,7 @@ const AMBER = {
     700:        "#A86201",
     800:        "#874D01",
     900:        "#633600",
-}
+};
 const YELLOW = {
     DEFAULT:    "#F9DD22",
     50:         "#FCF8D1",
@@ -134,7 +136,7 @@ const YELLOW = {
     700:        "#B98201",
     800:        "#A06701",
     900:        "#874C00",
-}
+};
 const LIME = {
     DEFAULT:    "#AEF35A",
     50:         "#F4FFD8",
@@ -147,7 +149,7 @@ const LIME = {
     700:        "#7ECC18",
     800:        "#62AA0A",
     900:        "#437C01",
-}
+};
 const LIGHT_GREEN = {
     DEFAULT:    "#30E85B",
     50:         "#CEFFD8",
@@ -160,7 +162,7 @@ const LIGHT_GREEN = {
     700:        "#1AA53F",
     800:        "#0B842C",
     900:        "#00681D",
-}
+};
 const GREEN = {
     DEFAULT:    "#01862E",
     50:         "#C0E5C3",
@@ -173,7 +175,7 @@ const GREEN = {
     700:        "#095C19",
     800:        "#04460E",
     900:        "#003010",
-}
+};
 const TEAL = {
     DEFAULT:    "#20C997",
     50:         "#C0F5E5",
@@ -186,7 +188,7 @@ const TEAL = {
     700:        "#128260",
     800:        "#0A684C",
     900:        "#014933",
-}
+};
 const CYAN = {
     DEFAULT:    "#06E1E5",
     50:         "#CEFEFF",
@@ -199,7 +201,7 @@ const CYAN = {
     700:        "#26A0A9",
     800:        "#127F87",
     900:        "#005B66",
-}
+};
 const LIGHT_BLUE = {
     DEFAULT:    "#56CCF2",
     50:         "#CEF6FF",
@@ -212,7 +214,7 @@ const LIGHT_BLUE = {
     700:        "#2391BA",
     800:        "#0E78A5",
     900:        "#016391",
-}
+};
 const BLUE = {
     DEFAULT:    "#1A70E1",
     50:         "#C0DCF7",
@@ -225,7 +227,7 @@ const BLUE = {
     700:        "#164D9E",
     800:        "#0C3B85",
     900:        "#02296D",
-}
+};
 const INDIGO = {
     DEFAULT:    "#1D3BB7",
     50:         "#C7D6FC",
@@ -238,7 +240,7 @@ const INDIGO = {
     700:        "#152F99",
     800:        "#091F7C",
     900:        "#010E47",
-}
+};
 const PURPLE = {
     DEFAULT:    "#6512E1",
     50:         "#DDC2FC",
@@ -251,7 +253,7 @@ const PURPLE = {
     700:        "#3F1396",
     800:        "#2F097A",
     900:        "#19004F",
-}
+};
 const PINK = {
     DEFAULT:    "#DA0299",
     50:         "#FCBDED",
@@ -264,13 +266,15 @@ const PINK = {
     700:        "#A30D73",
     800:        "#87055E",
     900:        "#630040",
-}
+};
 
 let NEUTRALS = GREY;
 
 const COLORS = {
     INITIAL:        INITIAL,
     INHERIT:        INHERIT,
+    TRANSPARENT:    TRANSPARENT,
+    CURRENT_COLOR:  CURRENT_COLOR,
     WHITE:          WHITE,
     BLACK:          BLACK,
     BROWN:          BROWN,
@@ -289,7 +293,7 @@ const COLORS = {
     INDIGO:         INDIGO,
     PURPLE:         PURPLE,
     PINK:           PINK,
-}
+};
 
 const THEME_COLORS = {
     INITIAL:    INITIAL,
@@ -302,7 +306,7 @@ const THEME_COLORS = {
     DANGER:     RED[400],
     LIGHT:      NEUTRALS[50],
     DARK:       NEUTRALS[900],
-}
+};
 
 function isValidColor(color) {
     return (
@@ -327,8 +331,14 @@ function isValidColor(color) {
         Object.values(PINK).includes(color) ||
         Object.values(GREY).includes(color) ||
         Object.values(COOL_GREY).includes(color) ||
-        Object.values(WARM_GREY).includes(color)
-    )
+        Object.values(WARM_GREY).includes(color) ||
+        ((
+            (typeof color === "string") ||
+            (color instanceof String)
+        ) && (
+            color.match(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/)
+        ))
+    );
 }
 
-module.exports = { NEUTRALS, COLORS, THEME_COLORS, isValidColor }
+module.exports = { NEUTRALS, COLORS, THEME_COLORS, isValidColor };

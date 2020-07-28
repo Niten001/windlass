@@ -21,7 +21,7 @@ module.exports = class SurveyQuestions {
     constructor() { }
 
     render() {
-        let surveyQuestionsHTML = ``;
+        let surveyQuestionsHTML = "";
         for (let i = 0; i < surveyQuestions.length; i++) {
             const surveyRadioButtons = new SurveyRadioButtons(i);
             surveyQuestionsHTML += `
@@ -38,4 +38,4 @@ module.exports = class SurveyQuestions {
             </div>
         `;
     }
-}
+};

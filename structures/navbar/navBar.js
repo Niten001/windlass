@@ -9,7 +9,7 @@ module.exports = class NavBar {
         const signInButton = new Button("Sign in", "outline caps", "primary", "./signin");
         const signUpButton = new Button("Sign up", "caps", "primary", "./signup");
 
-        let profileHTML = ``;
+        let profileHTML = "";
         if (loggedIn) {
             profileHTML = `
             <div class="profile_icon">
@@ -36,4 +36,4 @@ module.exports = class NavBar {
             </div>
         `;
     }
-}
+};

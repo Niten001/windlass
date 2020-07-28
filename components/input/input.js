@@ -7,4 +7,4 @@ module.exports = {
     Button,
     Checkbox,
     Textbox
-}
+};

@@ -1,8 +1,8 @@
 module.exports = function defaultPage(props) {
-    (props === undefined || props.title === undefined) ? (this.title = ``) : (this.title = props.title);
-    (props === undefined || props.description === undefined) ? (this.description = ``) : (this.description = props.description);
-    (props === undefined || props.lang === undefined) ? (this.lang = `en`) : (this.lang = props.lang);
-    (props === undefined || props.content === undefined) ? (this.content = ``) : (this.content = String.raw`${props.content}`);
+    (props === undefined || props.title === undefined) ? (this.title = "") : (this.title = props.title);
+    (props === undefined || props.description === undefined) ? (this.description = "") : (this.description = props.description);
+    (props === undefined || props.lang === undefined) ? (this.lang = "en") : (this.lang = props.lang);
+    (props === undefined || props.content === undefined) ? (this.content = "") : (this.content = String.raw`${props.content}`);
 
     return `
         <!DOCTYPE html>
@@ -17,4 +17,4 @@ module.exports = function defaultPage(props) {
             <body>${this.content}</body>
         </html>
     `;
-}
+};

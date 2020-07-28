@@ -14,7 +14,7 @@ module.exports = class ListItem {
         let duration = "";
         const hours = Math.floor(this.metadata.duration / 3600);
         let minutes = Math.floor((this.metadata.duration - (hours * 3600)) / 60);
-        let seconds = (this.metadata.duration - (hours * 3600) - (minutes * 60))
+        let seconds = (this.metadata.duration - (hours * 3600) - (minutes * 60));
         minutes = ((minutes < 10) && (hours != 0)) ?  "0" + minutes : minutes;
         seconds = (seconds < 10) ?  "0" + seconds : seconds;
         duration = (hours != 0) ? hours + ":" + minutes + ":" + seconds : minutes + ":" + seconds;
@@ -55,30 +55,30 @@ module.exports = class ListItem {
             timeSinceUpload = "less than 1 day ago";
         }
         
-        let descriptionHTML = ``;
+        let descriptionHTML = "";
         if (this.style != "sm") {
             descriptionHTML = this.metadata.description;
             if (descriptionHTML.length > 270) {
                 descriptionHTML = descriptionHTML.substr(0, 270);
                 descriptionHTML = descriptionHTML.substr(0, descriptionHTML.lastIndexOf(" ")) + " ...";
             }
-            descriptionHTML = `<div class="description">` + descriptionHTML + `</div>`;
+            descriptionHTML = "<div class=\"description\">" + descriptionHTML + "</div>";
         }
         
         return `
-            <div class="list-item ` + this.style + `" onclick="window.location.href = './watch?v=` + this.metadata.id + `'">
+            <div class="list-item ` + this.style + "\" onclick=\"window.location.href = './watch?v=" + this.metadata.id + `'">
                 <div class="preview">
                     <img src="` + this.metadata.thumbnail + `"/>
                     <div class="duration">` + duration + `</div>
                 </div>
                 <div class="details">
                     <div class="title">` + title + `</div>
-                    <div class="content-creator youtube-link" data-url="` + this.metadata.uploader_url + `">` + this.metadata.uploader + `</div>
-                    <div class="views">` + views + ' views' + `</div>
+                    <div class="content-creator youtube-link" data-url="` + this.metadata.uploader_url + "\">" + this.metadata.uploader + `</div>
+                    <div class="views">` + views + " views" + `</div>
                     <div class="published">` + timeSinceUpload + `</div>
                     ` + descriptionHTML + `
                 </div>
             </div>
         `;
     }
-}
+};

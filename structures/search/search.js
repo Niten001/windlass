@@ -82,13 +82,13 @@ module.exports = class Search {
     constructor() { }
  
     render() {
-        let filterDropdownHTML = ``;
+        let filterDropdownHTML = "";
         values.forEach(value => {
-            filterDropdownHTML += `<li id="` + value[0] + `" class="check-box">` + value[0] + `<ul>`;
+            filterDropdownHTML += "<li id=\"" + value[0] + "\" class=\"check-box\">" + value[0] + "<ul>";
             value[2].forEach(category => {
-                filterDropdownHTML += `<li id="` + category[0] + `" class="check-box">` + category[0] + `</li>`;
+                filterDropdownHTML += "<li id=\"" + category[0] + "\" class=\"check-box\">" + category[0] + "</li>";
             });
-            filterDropdownHTML += `</ul></li>`;
+            filterDropdownHTML += "</ul></li>";
         });
 
         return `
@@ -96,7 +96,7 @@ module.exports = class Search {
                 <div class="search-container">
                     <form class="search-form" action="./results">
                         <input id="search-input" class="search-input" type="text" placeholder="Search" name="search_query" required/>` +
-                        `<button class="search-button"><i class="fas fa-search"></i></button></form>` +
+                        "<button class=\"search-button\"><i class=\"fas fa-search\"></i></button></form>" +
                     `<button id="filter-button" class="filter-button" onclick="toggleFilter();"><i class="fas fa-chevron-down"></i></button>
                 </div>
                 <div id="search-filter-dropdown" class="search-filter-dropdown">
@@ -107,4 +107,4 @@ module.exports = class Search {
             </div>
         `;
     }
-}
+};
