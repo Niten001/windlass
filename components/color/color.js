@@ -1,8 +1,20 @@
+/*  ---------------------------------------------------------------------------
+ *    Windlass v1.0.0 - Color Components
+ *    Source code for all Windlass color components, including a wide range of 
+ *      color constants, palettes and themes, a color validation function and 
+ *      more. Use color to present your content in a friendly, pleasant and 
+ *      consistent manner in accordance with the HTML5 specification and 
+ *      WCAG AA standards.
+ *    Copyright 2020 Timothy Martin
+ *    Licensed under MIT (https://github.com/Niten001/windlass/blob/master/LICENSE)
+ *  ---------------------------------------------------------------------------  */
+
 //  Color
 const INITIAL = "initial";
 const INHERIT = "inherit";
 const TRANSPARENT = "transparent";
 const CURRENT_COLOR = "currentcolor";
+
 //  Neutrals
 const WHITE = "#FFFFFF";
 const BLACK = "#000000";

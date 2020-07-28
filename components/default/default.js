@@ -1,11 +1,11 @@
 /*  ---------------------------------------------------------------------------
- *    Windlass v1.0.0 - Default Properties
- *    Source code for all Windlass default properties, including alignment 
+ *    Windlass v1.0.0 - Default Components
+ *    Source code for all Windlass default components, including alignment 
  *      values, display values, global attribute properties and more. Use these 
  *      defaults to present your content in a consistent, concise manner in 
  *      accordance with the HTML5 specification.
  *    Copyright 2020 Timothy Martin
- *    Licensed under MIT (LICENSE)
+ *    Licensed under MIT (https://github.com/Niten001/windlass/blob/master/LICENSE)
  *  ---------------------------------------------------------------------------  */
 
 // Align Values
@@ -143,7 +143,7 @@ class DEFAULT_PROPERTIES {
         this.styleList = [];
     }
 
-    // Combine Style function
+    // Combine Styles function
     combineStyles() {
         try {
             if (this.styleList.constructor === Array) {
