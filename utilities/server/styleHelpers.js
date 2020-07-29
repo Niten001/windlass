@@ -1,9 +1,12 @@
+// Imports
+const { combineStrings } = require("./stringHelpers");
+
 // Combine Styles function
 function combineStyles(styleList, overrideStyle) {
     try {
         if (styleList.constructor === Array) {
             if (styleList.some((style) => {return (typeof style === "string" || style instanceof String);})) {
-                return `style="${styleList.filter((style) => {return style != null;}).join(" ")}${overrideStyle ? ` ${overrideStyle}` : ""}"`;
+                return `style="${combineStrings(styleList)}${overrideStyle ? ` ${overrideStyle}` : ""}"`;
             } else {
                 return "";
             }

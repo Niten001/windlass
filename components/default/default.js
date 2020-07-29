@@ -8,6 +8,9 @@
  *    Licensed under MIT (https://github.com/Niten001/windlass/blob/master/LICENSE)
  *  ---------------------------------------------------------------------------  */
 
+// Imports
+const { SecurityHelpers } = require("../../utilities/utilities").Server;
+
 // [wl_IFUSr] Align Values
 const ALIGN_VALUES = {
     INHERIT:    "inherit",
@@ -53,7 +56,7 @@ class DEFAULT_PROPERTIES {
             if (props.class === undefined) {
                 this.class = "";
             } else if ((typeof props.class === "string") || (props.class instanceof String)) {
-                this.class = `class="${props.class}"`;
+                this.class = SecurityHelpers.sanitiseHTML(`class="${props.class}"`);
             } else {
                 throw new TypeError(`${props.class} on DEFAULT_PROPERTIES.class is not a valid String type.`);
             }
@@ -79,7 +82,7 @@ class DEFAULT_PROPERTIES {
             if (props.direction === undefined) {
                 this.direction = "";
             } else if (Object.values(DIRECTION_VALUES).includes(props.direction)) {
-                this.direction = `dir="${props.direction}"`;
+                this.direction = SecurityHelpers.sanitiseHTML(`dir="${props.direction}"`);
             } else {
                 throw new TypeError(`${props.direction} on DEFAULT_PROPERTIES.direction is not a valid DIRECTION_VALUES type.`);
             }
@@ -92,7 +95,7 @@ class DEFAULT_PROPERTIES {
             if (props.id === undefined) {
                 this.id = "";
             } else if ((typeof props.id === "string") || (props.id instanceof String)) {
-                this.id = `id="${props.id}"`;
+                this.id = SecurityHelpers.sanitiseHTML(`id="${props.id}"`);
             } else {
                 throw new TypeError(`${props.id} on DEFAULT_PROPERTIES.id is not a valid String type.`);
             }
@@ -105,7 +108,7 @@ class DEFAULT_PROPERTIES {
             if (props.language === undefined) {
                 this.language = "";
             } else if ((typeof props.language === "string") || (props.language instanceof String)) {
-                this.language = `lang="${props.language}"`;
+                this.language = SecurityHelpers.sanitiseHTML(`lang="${props.language}"`);
             } else {
                 throw new TypeError(`${props.language} on DEFAULT_PROPERTIES.language is not a valid String type.`);
             }
@@ -118,7 +121,7 @@ class DEFAULT_PROPERTIES {
             if (props.style === undefined) {
                 this.style = undefined;
             } else if ((typeof props.style === "string") || (props.style instanceof String)) {
-                this.style = props.style;
+                this.style = SecurityHelpers.sanitiseCSS(props.style);
             } else {
                 throw new TypeError(`${props.style} on DEFAULT_PROPERTIES.style is not a valid String type.`);
             }
@@ -131,7 +134,7 @@ class DEFAULT_PROPERTIES {
             if (props.title === undefined) {
                 this.title = "";
             } else if ((typeof props.title === "string") || (props.title instanceof String)) {
-                this.title = `title="${props.title}" aria-label="${props.title}"`;
+                this.title = SecurityHelpers.sanitiseHTML(`title="${props.title}" aria-label="${props.title}"`);
             } else {
                 throw new TypeError(`${props.title} on DEFAULT_PROPERTIES.title is not a valid String type.`);
             }
