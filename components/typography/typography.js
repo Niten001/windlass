@@ -19,7 +19,7 @@ const { isValidColor } = require("../color/color");
 const { combineStyles } = require("../../utilities/utilities").Server.Style;
 
 // Typography
-// Typography Properties
+// [wl_aWVfK] Typography Properties
 class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
     constructor(props) {
         super(props);
@@ -65,7 +65,7 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
         // noWrap
         try {
             if (props.noWrap === undefined) {
-                this.noWrap = undefined;
+                this.noWrap = false;
             } else if ((typeof props.noWrap === "boolean") || (props.noWrap instanceof Boolean)) {
                 this.noWrap = (props.noWrap) ? ("white-space: nowrap; overflow: hidden; text-overflow: ellipsis;") : ("");
             } else {
@@ -112,8 +112,7 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
     }
 }
 
-// Text
-// Text Variants
+// [wl_bMurR] Text Variants
 const TEXT_VARIANTS = {
     DEFAULT:        "span",
     BOLD:           "b",
@@ -131,7 +130,7 @@ const TEXT_VARIANTS = {
 };
 Object.freeze(TEXT_VARIANTS);
 
-// Text Properties
+// [wl_l42Im] Text Properties
 class TEXT_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
     constructor(props) {
         super(props);
@@ -150,6 +149,7 @@ class TEXT_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
     }
 }
 
+// [wl_ObnZD] Text
 function Text(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
@@ -163,8 +163,7 @@ function Text(props) {
     }
 }
 
-// Heading
-// Heading Variants
+// [wl_8JS8I] Heading Variants
 const HEADING_VARIANTS = {
     DEFAULT:    "h1",
     HEADING_1:  "h1",
@@ -176,7 +175,7 @@ const HEADING_VARIANTS = {
 };
 Object.freeze(HEADING_VARIANTS);
 
-// Heading Properties
+// [wl_Qtw13] Heading Properties
 class HEADING_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
     constructor(props) {
         super(props);
@@ -195,6 +194,7 @@ class HEADING_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
     }
 }
 
+// [wl_bjrVc] Heading
 function Heading(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
@@ -208,16 +208,6 @@ function Heading(props) {
     }
 }
 
-function HeadingGroup(props) {
-    try {
-        (props instanceof DEFAULT_PROPERTIES) ? (this.props = props) : (this.props = new DEFAULT_PROPERTIES(props));
-        return `<hgroup ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</hgroup>`;
-    } catch (e) {
-        console.error(e);
-    }
-}
-
-// Link
 // Link Variants
 const LINK_VARIANTS = {
     ALTERNATE:      "alternate",
@@ -281,6 +271,7 @@ class LINK_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
     }
 }
 
+// Link
 function Link(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
@@ -294,7 +285,6 @@ function Link(props) {
     }
 }
 
-// Quote
 // Quote Properties
 class QUOTE_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
     constructor(props) {
@@ -356,8 +346,7 @@ function Cite(props) {
     }
 }
 
-// Code
-// Inline
+// Inline Code
 function Code(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
@@ -427,7 +416,6 @@ function Variable(props) {
     }
 }
 
-// List
 // List Variants
 const LIST_VARIANTS = {
     DEFAULT:                "disc",
@@ -575,7 +563,6 @@ module.exports = {
     HEADING_VARIANTS,
     HEADING_PROPERTIES,
     Heading,
-    HeadingGroup,
     LINK_VARIANTS,
     LINK_PROPERTIES,
     Link,

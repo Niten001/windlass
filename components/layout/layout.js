@@ -19,7 +19,7 @@ const { isValidColor } = require("../color/color");
 class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
     constructor(props) {
         super(props);
-                
+        
     }
 }
         
@@ -41,6 +41,15 @@ function Address(props) {
 // Grid
 // Header
 // Heading Group
+function HeadingGroup(props) {
+    try {
+        (props instanceof DEFAULT_PROPERTIES) ? (this.props = props) : (this.props = new DEFAULT_PROPERTIES(props));
+        return `<hgroup ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</hgroup>`;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 // Item
 // Main
 // Nav
@@ -50,5 +59,6 @@ function Address(props) {
 
 // Export Layout
 module.exports = {
-
+    Address,
+    HeadingGroup,
 };
