@@ -1,4 +1,4 @@
-const randomId = require("../../../utilities/server/server.js").Random.randomId;
+const randomId = require("../../../utilities/server/server.js").RandomHelpers.randomId;
 
 module.exports = class Button {
     constructor(args) {

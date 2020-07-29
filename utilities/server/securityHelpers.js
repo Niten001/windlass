@@ -1,7 +1,7 @@
 // Sanitise CSS
 function sanitiseCSS(css) {
     try {
-        if ((typeof props.link === "string") || (props.link instanceof String)) {
+        if ((typeof css === "string") || (css instanceof String)) {
             return css;
         }  else {
             throw new TypeError(`${css} on sanitiseCSS() is not a valid String type.`);
@@ -14,7 +14,7 @@ function sanitiseCSS(css) {
 // Sanitise HTML
 function sanitiseHTML(html) {
     try {
-        if ((typeof props.link === "string") || (props.link instanceof String)) {
+        if ((typeof html === "string") || (html instanceof String)) {
             return html;
         }  else {
             throw new TypeError(`${css} on sanitiseCSS() is not a valid String type.`);

@@ -3,7 +3,7 @@ function combineStrings(stringArray) {
     try {
         if (stringArray.constructor === Array) {
             if (stringArray.some((string) => {return (typeof string === "string" || string instanceof String);})) {
-                return stringArray.filter((string) => {return string != null;}).join(" ");
+                return stringArray.filter((string) => {return (string != null && string != "")}).join(" ");
             } else {
                 return "";
             }
