@@ -16,6 +16,7 @@ const {
     TRANSFORM_VALUES,
 } = require("../default/default");
 const { isValidColor } = require("../color/color");
+const { combineStyles } = require("../../utilities/utilities").Server.Style;
 
 // Typography
 // Typography Properties
@@ -153,7 +154,7 @@ function Text(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TEXT_PROPERTIES) ? (this.props = props) : (this.props = new TEXT_PROPERTIES(props));
-            return `${(this.props.paragraph) ? ("<p>") : ("")}<${this.props.variant} ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</${this.props.variant}>${(this.props.paragraph) ? ("</p>") : ("")}`;
+            return `${(this.props.paragraph) ? ("<p>") : ("")}<${this.props.variant} ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</${this.props.variant}>${(this.props.paragraph) ? ("</p>") : ("")}`;
         } else {
             throw new TypeError(`${props} on Text is not a valid Object type.`);
         }
@@ -198,7 +199,7 @@ function Heading(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof HEADING_PROPERTIES) ? (this.props = props) : (this.props = new HEADING_PROPERTIES(props));
-            return `${(this.paragraph) ? ("<p>") : ("")}<${this.props.variant} ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</${this.props.variant}>${(this.paragraph) ? ("</p>") : ("")}`;
+            return `${(this.paragraph) ? ("<p>") : ("")}<${this.props.variant} ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</${this.props.variant}>${(this.paragraph) ? ("</p>") : ("")}`;
         } else {
             throw new TypeError(`${props} on Heading is not a valid Object type.`);
         }        
@@ -210,7 +211,7 @@ function Heading(props) {
 function HeadingGroup(props) {
     try {
         (props instanceof DEFAULT_PROPERTIES) ? (this.props = props) : (this.props = new DEFAULT_PROPERTIES(props));
-        return `<hgroup ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${(this.props.style === undefined) ? ("") : (`style="${this.props.style}"`)}>${this.props.content}</hgroup>`;
+        return `<hgroup ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</hgroup>`;
     } catch (e) {
         console.error(e);
     }
@@ -284,7 +285,7 @@ function Link(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof LINK_PROPERTIES) ? (this.props = props) : (this.props = new LINK_PROPERTIES(props));
-            return `${(this.paragraph) ? ("<p>") : ("")}<a ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.variant} ${this.props.download} ${this.props.link} ${this.props.combineStyles()}>${this.props.content}</a>${(this.paragraph) ? ("</p>") : ("")}`;
+            return `${(this.paragraph) ? ("<p>") : ("")}<a ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.variant} ${this.props.download} ${this.props.link} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</a>${(this.paragraph) ? ("</p>") : ("")}`;
         } else {
             throw new TypeError(`${props} on Link is not a valid Object type.`);
         }
@@ -318,7 +319,7 @@ function Quote(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof QUOTE_PROPERTIES) ? (this.props = props) : (this.props = new QUOTE_PROPERTIES(props));
-            return `<q ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.source} ${this.props.combineStyles()}>${this.props.content}</q>`;
+            return `<q ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.source} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</q>`;
         } else {
             throw new TypeError(`${props} on Quote is not a valid Object type.`);
         }
@@ -332,7 +333,7 @@ function Blockquote(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof QUOTE_PROPERTIES) ? (this.props = props) : (this.props = new QUOTE_PROPERTIES(props));
-            return `<blockquote ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.source} ${this.props.combineStyles()}>${this.props.content}</blockquote>`;
+            return `<blockquote ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.source} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</blockquote>`;
         } else {
             throw new TypeError(`${props} on Blockquote is not a valid Object type.`);
         }
@@ -346,7 +347,7 @@ function Cite(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<cite ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</cite>`;
+            return `<cite ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</cite>`;
         } else {
             throw new TypeError(`${props} on Cite is not a valid Object type.`);
         }
@@ -361,7 +362,7 @@ function Code(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<code ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</code>`;
+            return `<code ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</code>`;
         } else {
             throw new TypeError(`${props} on Code is not a valid Object type.`);
         }
@@ -375,7 +376,7 @@ function CodeBlock(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<pre ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}><code>${this.props.content}</code></pre>`;
+            return `<pre ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}><code>${this.props.content}</code></pre>`;
         } else {
             throw new TypeError(`${props} on CodeBlock is not a valid Object type.`);
         }
@@ -389,7 +390,7 @@ function Keyboard(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<kbd ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</kbd>`;
+            return `<kbd ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</kbd>`;
         } else {
             throw new TypeError(`${props} on Keyboard is not a valid Object type.`);
         }
@@ -403,7 +404,7 @@ function Output(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<samp ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</samp>`;
+            return `<samp ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</samp>`;
         } else {
             throw new TypeError(`${props} on Output is not a valid Object type.`);
         }
@@ -417,7 +418,7 @@ function Variable(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<var ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</var>`;
+            return `<var ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</var>`;
         } else {
             throw new TypeError(`${props} on Variable is not a valid Object type.`);
         }
@@ -487,7 +488,7 @@ function UnorderedList(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof LIST_PROPERTIES) ? (this.props = props) : (this.props = new LIST_PROPERTIES(props));
-            return `<ul role="list" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.variant} ${this.props.combineStyles()}>${this.props.content}</ul>`;
+            return `<ul role="list" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.variant} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</ul>`;
         } else {
             throw new TypeError(`${props} on UnorderedList is not a valid Object type.`);
         }
@@ -501,7 +502,7 @@ function OrderedList(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof LIST_PROPERTIES) ? (this.props = props) : (this.props = new LIST_PROPERTIES(props));
-            return `<ul role="list" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.variant} ${this.props.combineStyles()}>${this.props.content}</ul>`;
+            return `<ul role="list" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.variant} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</ul>`;
         } else {
             throw new TypeError(`${props} on OrderedList is not a valid Object type.`);
         }
@@ -515,7 +516,7 @@ function ListItem(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof LIST_PROPERTIES) ? (this.props = props) : (this.props = new LIST_PROPERTIES(props));
-            return `<li role="listitem" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.variant} ${this.props.combineStyles()}>${this.props.content}</li>`;
+            return `<li role="listitem" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.variant} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</li>`;
         } else {
             throw new TypeError(`${props} on OrderedList is not a valid Object type.`);
         }
@@ -529,7 +530,7 @@ function DescriptiveList(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<dl role="list" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</dl>`;
+            return `<dl role="list" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</dl>`;
         } else {
             throw new TypeError(`${props} on DescriptiveList is not a valid Object type.`);
         }
@@ -543,7 +544,7 @@ function DescriptiveDetails(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<dd role="listitem" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</dd>`;
+            return `<dd role="listitem" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</dd>`;
         } else {
             throw new TypeError(`${props} on DescriptiveDetails is not a valid Object type.`);
         }
@@ -557,7 +558,7 @@ function DescriptiveTerm(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             (props instanceof TYPOGRAPHY_PROPERTIES) ? (this.props = props) : (this.props = new TYPOGRAPHY_PROPERTIES(props));
-            return `<dt role="listitem" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${this.props.combineStyles()}>${this.props.content}</dt>`;
+            return `<dt role="listitem" ${this.props.id} ${this.props.class} ${this.props.title} ${this.props.language} ${this.props.direction} ${combineStyles(this.props.styleList, this.props.style)}>${this.props.content}</dt>`;
         } else {
             throw new TypeError(`${props} on DescriptiveTerm is not a valid Object type.`);
         }

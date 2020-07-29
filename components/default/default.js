@@ -8,7 +8,7 @@
  *    Licensed under MIT (https://github.com/Niten001/windlass/blob/master/LICENSE)
  *  ---------------------------------------------------------------------------  */
 
-// Align Values
+// [wl_IFUSr] Align Values
 const ALIGN_VALUES = {
     INHERIT:    "inherit",
     LEFT:       "left",
@@ -18,7 +18,7 @@ const ALIGN_VALUES = {
 };
 Object.freeze(ALIGN_VALUES);
 
-// Direction Values
+// [wl_i9NPq] Direction Values
 const DIRECTION_VALUES = {
     AUTO:           "auto",
     LEFT_TO_RIGHT:  "ltr",
@@ -26,7 +26,7 @@ const DIRECTION_VALUES = {
 };
 Object.freeze(DIRECTION_VALUES);
 
-// Display Values
+// [wl_GKg6F] Display Values
 const DISPLAY_VALUES = {
     INITIAL:    "initial",
     BLOCK:      "block",
@@ -34,7 +34,7 @@ const DISPLAY_VALUES = {
 };
 Object.freeze(DISPLAY_VALUES);
 
-// Transform Values
+// [wl_bWc8v] Transform Values
 const TRANSFORM_VALUES = {
     NONE:       "none",
     INITIAL:    "initial",
@@ -45,7 +45,7 @@ const TRANSFORM_VALUES = {
 };
 Object.freeze(TRANSFORM_VALUES);
 
-// Default Properties
+// [wl_EfQ6W] Default Properties
 class DEFAULT_PROPERTIES {
     constructor(props) {
         // class
@@ -141,23 +141,6 @@ class DEFAULT_PROPERTIES {
 
         // stylelist
         this.styleList = [];
-    }
-
-    // Combine Styles function
-    combineStyles() {
-        try {
-            if (this.styleList.constructor === Array) {
-                if (this.styleList.some((style) => {return (typeof style === "string" || style instanceof String);})) {
-                    return `style="${this.styleList.filter((style) => {return style != null;}).join(" ")}${this.style ? ` ${this.style}` : ""}"`;
-                } else {
-                    return "";
-                }
-            } else {
-                throw new TypeError(`${this.styleList} on combineStyles() is not a valid Array type.`);
-            }
-        } catch (e) {
-            console.error(e);
-        }
     }
 }
 
