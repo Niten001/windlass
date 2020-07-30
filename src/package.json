@@ -1,0 +1,15 @@
+{
+  "name": "windlass",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A javascript web framework based on the HTML5 specification.",
+  "homepage": "https://github.com/Niten001/windlass#readme",
+  "main": "windlass.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Niten001/windlass.git"
+  },
+  "scripts": {},
+  "author": "Timothy Martin",
+  "license": "MIT"
+}

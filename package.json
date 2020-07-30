@@ -1,15 +1,24 @@
 {
   "name": "windlass",
   "version": "1.0.0",
-  "private": false,
+  "private": true,
   "description": "A javascript web framework based on the HTML5 specification.",
   "homepage": "https://github.com/Niten001/windlass#readme",
-  "main": "windlass.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Niten001/windlass.git"
   },
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint --ext js .",
+    "lint:fix": "yarn lint --fix"
+  },
   "author": "Timothy Martin",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "2.0.5"
+  }
 }
