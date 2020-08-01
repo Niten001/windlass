@@ -1,5 +1,5 @@
 // Imports
-const { combineStrings } = require("./stringHelpers");
+const { combineStrings } = require("./StringHelpers");
 
 // Combine Styles function
 function combineStyles(styleList, overrideStyle) {

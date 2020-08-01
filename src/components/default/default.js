@@ -9,7 +9,10 @@
  *  ---------------------------------------------------------------------------  */
 
 // Imports
-const { SecurityHelpers } = require("../../utilities/utilities").Server;
+const {
+  SecurityHelpers,
+  TypeHelpers,
+} = require("../../utilities/utilities").Server;
 
 // [wl_IFUSr] Align Values
 const ALIGN_VALUES = {
@@ -52,130 +55,86 @@ Object.freeze(TRANSFORM_VALUES);
 class DEFAULT_PROPERTIES {
   constructor(props) {
     // class
-    try {
-      if (props.class === undefined) {
-        this.class = "";
-      } else if (
-        typeof props.class === "string" ||
-        props.class instanceof String
-      ) {
-        this.class = SecurityHelpers.sanitiseHTML(`class="${props.class}"`);
-      } else {
-        throw new TypeError(
-          `${props.class} on DEFAULT_PROPERTIES.class is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "class",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(`class="${props.class}"`)
+    );
 
     // content
-    try {
-      if (props.content === undefined) {
-        this.content = "";
-      } else if (
-        typeof props.content === "string" ||
-        props.content instanceof String
-      ) {
-        this.content = String.raw`${props.content}`;
-      } else {
-        throw new TypeError(
-          `${props.content} on DEFAULT_PROPERTIES.content is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "content",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      String.raw`${props.content}`
+    );
 
     // direction
-    try {
-      if (props.direction === undefined) {
-        this.direction = "";
-      } else if (Object.values(DIRECTION_VALUES).includes(props.direction)) {
-        this.direction = SecurityHelpers.sanitiseHTML(
-          `dir="${props.direction}"`
-        );
-      } else {
-        throw new TypeError(
-          `${props.direction} on DEFAULT_PROPERTIES.direction is not a valid DIRECTION_VALUES type.`
-        );
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "direction",
+      DIRECTION_VALUES,
+      "",
+      SecurityHelpers.sanitiseHTML(`dir="${props.direction}"`)
+    );
+
+    // display
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "display",
+      DISPLAY_VALUES,
+      undefined,
+      SecurityHelpers.sanitiseCSS(`display: ${props.display};`)
+    );
 
     // id
-    try {
-      if (props.id === undefined) {
-        this.id = "";
-      } else if (typeof props.id === "string" || props.id instanceof String) {
-        this.id = SecurityHelpers.sanitiseHTML(`id="${props.id}"`);
-      } else {
-        throw new TypeError(
-          `${props.id} on DEFAULT_PROPERTIES.id is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "id",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(`id="${props.id}"`)
+    );
 
     // language
-    try {
-      if (props.language === undefined) {
-        this.language = "";
-      } else if (
-        typeof props.language === "string" ||
-        props.language instanceof String
-      ) {
-        this.language = SecurityHelpers.sanitiseHTML(
-          `lang="${props.language}"`
-        );
-      } else {
-        throw new TypeError(
-          `${props.language} on DEFAULT_PROPERTIES.language is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "language",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(`lang="${props.language}"`)
+    );
 
     // style
-    try {
-      if (props.style === undefined) {
-        this.style = undefined;
-      } else if (
-        typeof props.style === "string" ||
-        props.style instanceof String
-      ) {
-        this.style = SecurityHelpers.sanitiseCSS(props.style);
-      } else {
-        throw new TypeError(
-          `${props.style} on DEFAULT_PROPERTIES.style is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "style",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseCSS(props.style)
+    );
 
     // title
-    try {
-      if (props.title === undefined) {
-        this.title = "";
-      } else if (
-        typeof props.title === "string" ||
-        props.title instanceof String
-      ) {
-        this.title = SecurityHelpers.sanitiseHTML(
-          `title="${props.title}" aria-label="${props.title}"`
-        );
-      } else {
-        throw new TypeError(
-          `${props.title} on DEFAULT_PROPERTIES.title is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "title",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(
+        `title="${props.title}" aria-label="${props.title}"`
+      )
+    );
 
     // stylelist
     this.styleList = [];

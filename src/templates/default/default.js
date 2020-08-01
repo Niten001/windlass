@@ -96,9 +96,7 @@ function DefaultTemplate(props) {
                         <meta name="viewport" content="width=device-width, initial-scale=1" />
                         <meta name="description" content="${this.props.description}" />
                         <meta name="title" content="${this.props.title}" />
-                        <title>` +
-        this.props.title +
-        `</title>
+                        <title>${this.props.title}</title>
                     </head>
                     <body>${this.props.content}</body>
                 </html>

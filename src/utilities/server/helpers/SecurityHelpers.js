@@ -1,7 +1,9 @@
 // Sanitise CSS
 function sanitiseCSS(css) {
   try {
-    if (typeof css === "string" || css instanceof String) {
+    if (css === undefined) {
+      return "";
+    } else if (typeof css === "string" || css instanceof String) {
       return css;
     } else {
       throw new TypeError(
@@ -16,7 +18,9 @@ function sanitiseCSS(css) {
 // Sanitise HTML
 function sanitiseHTML(html) {
   try {
-    if (typeof html === "string" || html instanceof String) {
+    if (html === undefined) {
+      return "";
+    } else if (typeof html === "string" || html instanceof String) {
       return html;
     } else {
       throw new TypeError(

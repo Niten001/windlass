@@ -10,8 +10,8 @@
   },
   "scripts": {
     "lint": "eslint --ext js .",
-    "lint:fix": "yarn lint --fix",
-    "test": "jest"
+    "lint:fix": "npm run lint --fix",
+    "test": "jest --collectCoverage"
   },
   "author": "Timothy Martin",
   "license": "MIT",

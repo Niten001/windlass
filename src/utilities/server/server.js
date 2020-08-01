@@ -1,11 +1,13 @@
-const RandomHelpers = require("./randomHelpers.js");
-const SecurityHelpers = require("./securityHelpers.js");
-const StringHelpers = require("./stringHelpers.js");
-const StyleHelpers = require("./styleHelpers.js");
+const RandomHelpers = require("./helpers/RandomHelpers.js");
+const SecurityHelpers = require("./helpers/SecurityHelpers.js");
+const StringHelpers = require("./helpers/StringHelpers.js");
+const StyleHelpers = require("./helpers/StyleHelpers.js");
+const TypeHelpers = require("./helpers/TypeHelpers.js");
 
 module.exports = {
   RandomHelpers,
   SecurityHelpers,
   StringHelpers,
   StyleHelpers,
+  TypeHelpers,
 };
