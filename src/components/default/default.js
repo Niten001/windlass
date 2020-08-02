@@ -137,7 +137,7 @@ class DEFAULT_PROPERTIES {
     );
 
     // stylelist
-    this.styleList = [];
+    this.styleList = [this.display];
   }
 }
 

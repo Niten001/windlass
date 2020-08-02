@@ -87,21 +87,19 @@ function DefaultTemplate(props) {
       props instanceof DEFAULT_TEMPLATE_PROPERTIES
         ? (this.props = props)
         : (this.props = new DEFAULT_TEMPLATE_PROPERTIES(props));
-      return (
-        `
-                <!DOCTYPE html>
-                <html lang="${this.props.lang}">
-                    <head>
-                        <meta charset="UTF-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1" />
-                        <meta name="description" content="${this.props.description}" />
-                        <meta name="title" content="${this.props.title}" />
-                        <title>${this.props.title}</title>
-                    </head>
-                    <body>${this.props.content}</body>
-                </html>
-            `
-      );
+      return `
+        <!DOCTYPE html>
+        <html lang="${this.props.lang}">
+            <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="description" content="${this.props.description}" />
+                <meta name="title" content="${this.props.title}" />
+                <title>${this.props.title}</title>
+            </head>
+            <body>${this.props.content}</body>
+        </html>
+      `;
     } else {
       throw new TypeError(`${props} on Text is not a valid Object type.`);
     }

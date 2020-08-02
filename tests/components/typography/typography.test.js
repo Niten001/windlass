@@ -5,14 +5,90 @@
  *  ---------------------------------------------------------------------------  */
 
 // Imports
-const Typography = require("../../../src/windlass").Components.Typography;
+const { Color, Default, Typography } = require("../../../src/windlass").Components;
 
 // Typography Properties
 // Test Default Behaviour
+test("Test the default behaviour of TYPOGRAPHY_PROPERTIES", () => {
+  expect(new Typography.TYPOGRAPHY_PROPERTIES({})).toMatchObject({
+    class: "",
+    content: "",
+    direction: "",
+    display: undefined,
+    id: "",
+    language: "",
+    style: "",
+    title: "",
+    styleList: [undefined, undefined, undefined, false, undefined],
+    align: undefined,
+    color: undefined,
+    noWrap: false,
+    paragraph: false,
+    transform: undefined,
+  });
+});
 
 // Test Working
+test("Test TYPOGRAPHY_PROPERTIES works as expected", () => {
+  expect(
+    new Typography.TYPOGRAPHY_PROPERTIES({
+      id: "test",
+      class: "test",
+      content: "test",
+      color: Color.COLORS.WHITE,
+      language: "fr",
+    })
+  ).toMatchObject({
+    class: 'class="test"',
+    content: "test",
+    direction: "",
+    display: undefined,
+    id: 'id="test"',
+    language: 'lang="fr"',
+    style: "",
+    title: "",
+    styleList: [undefined, undefined, "color: #FFFFFF;", false, undefined],
+    align: undefined,
+    color: "color: #FFFFFF;",
+    noWrap: false,
+    paragraph: false,
+    transform: undefined,
+  });
+});
 
 // Test new properties
+test("Test the new properties added to TYPOGRAPHY_PROPERTIES", () => {
+  expect(
+    new Typography.TYPOGRAPHY_PROPERTIES({
+      align: Default.ALIGN_VALUES.JUSTIFY,
+      color: Color.COLORS.BLACK,
+      noWrap: true,
+      paragraph: true,
+      transform: Default.TRANSFORM_VALUES.UPPERCASE,
+    })
+  ).toMatchObject({
+    class: "",
+    content: "",
+    direction: "",
+    display: undefined,
+    id: "",
+    language: "",
+    style: "",
+    title: "",
+    styleList: [
+      undefined,
+      "text-align: justify;",
+      "color: #000000;",
+      "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+      "text-transform: uppercase;",
+    ],
+    align: "text-align: justify;",
+    color: "color: #000000;",
+    noWrap: "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;",
+    paragraph: true,
+    transform: "text-transform: uppercase;",
+  });
+});
 
 // Text Values
 // Test Accessible

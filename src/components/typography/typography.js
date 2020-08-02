@@ -80,7 +80,6 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
     this.styleList = this.styleList.concat([
       this.align,
       this.color,
-      this.display,
       this.noWrap,
       this.transform,
     ]);
@@ -705,6 +704,7 @@ function DescriptiveTerm(props) {
 
 // Export Typography
 module.exports = {
+  TYPOGRAPHY_PROPERTIES,
   TEXT_VALUES,
   TEXT_PROPERTIES,
   Text,
