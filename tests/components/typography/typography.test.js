@@ -5,7 +5,11 @@
  *  ---------------------------------------------------------------------------  */
 
 // Imports
-const { Color, Default, Typography } = require("../../../src/windlass").Components;
+const {
+  Color,
+  Default,
+  Typography,
+} = require("../../../src/windlass").Components;
 
 // Typography Properties
 // Test Default Behaviour

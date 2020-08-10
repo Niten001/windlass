@@ -8,69 +8,268 @@
 // Imports
 const {
   ALIGN_VALUES,
+  WIDTH_VALUES,
   DEFAULT_PROPERTIES,
-  DISPLAY_VALUES,
-  TRANSFORM_VALUES,
 } = require("../default/default");
-const { isValidColor } = require("../color/color");
+const {
+  SecurityHelpers,
+  StringHelpers,
+  StyleHelpers,
+  TypeHelpers,
+} = require("../../utilities/utilities").Server;
 
 // Layout
 // Layout Properties
 class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
   constructor(props) {
     super(props);
+    // align
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "align",
+      ALIGN_VALUES,
+      undefined,
+      SecurityHelpers.sanitiseCSS(`align: ${props.align};`)
+    );
+
+    // color
+    TypeHelpers.typeCheckColor(
+      this,
+      props,
+      "color",
+      undefined,
+      SecurityHelpers.sanitiseCSS(`background-color: ${props.color};`)
+    );
+
+    // border
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "border",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      undefined,
+      SecurityHelpers.sanitiseCSS(
+        props.border ? `border: solid 1px currentcolor;` : ``
+      )
+    );
+
+    // fluid
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "fluid",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      false,
+      SecurityHelpers.sanitiseCSS(
+        `${
+          props.fluid
+            ? `width: 100%;`
+            : `min-width: ${WIDTH_VALUES.EXTRA_SMALL}; width: fit-content(100%);`
+        };`
+      )
+    );
+
+    // margin
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "margin",
+      MARGIN_VALUES,
+      undefined,
+      SecurityHelpers.sanitiseCSS(`margin: ${props.margin};`)
+    );
+
+    // maxWidth
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "maxWidth",
+      WIDTH_VALUES,
+      undefined,
+      SecurityHelpers.sanitiseCSS(`max-width: ${props.maxWidth};`)
+    );
+
+    // padding
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "padding",
+      PADDING_VALUES,
+      undefined,
+      SecurityHelpers.sanitiseCSS(`padding: ${props.padding};`)
+    );
+
+    // visibility
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "visibility",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      false,
+      SecurityHelpers.sanitiseCSS(
+        props.visibility ? `visibility: visible;` : `visibility: hidden;`
+      )
+    );
+
+    // zIndex
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "zIndex",
+      ZINDEX_VALUES,
+      undefined,
+      SecurityHelpers.sanitiseCSS(`z-index: ${props.zIndex};`)
+    );
+
+    // styleList
+    this.styleList = this.styleList.concat([
+      this.align,
+      this.color,
+      this.border,
+      this.fluid,
+      this.margin,
+      this.maxWidth,
+      this.padding,
+      this.visibility,
+      this.zIndex,
+    ]);
   }
 }
 
-//  Address
-function Address(props) {
-  try {
-    props instanceof DEFAULT_PROPERTIES
-      ? (this.props = props)
-      : (this.props = new DEFAULT_PROPERTIES(props));
-    return `<address ${this.props.id} ${this.props.class} ${this.props.title} ${
-      this.props.language
-    } ${this.props.direction} ${
-      this.props.style === undefined ? "" : `style="${this.props.style}"`
-    }>${this.props.content}</address>`;
-  } catch (e) {
-    console.error(`${e.name}: ${e.message}`);
+const CONTAINER_VALUES = {
+  DEFAULT: "div",
+  ADDRESS: "address",
+  ARTICLE: "article",
+  ASIDE: "aside",
+  CONTAINER: "div",
+  FOOTER: "footer",
+  HEADER: "header",
+  HEADING_GROUP: "hgroup",
+  MAIN: "main",
+  NAVIGATION: "nav",
+  SECTION: "section",
+};
+Object.freeze(CONTAINER_VALUES);
+
+//  Container Properties
+class CONTAINER_PROPERTIES extends LAYOUT_PROPERTIES {
+  constructor(props) {
+    super(props);
+    // variant
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "variant",
+      CONTAINER_VALUES,
+      CONTAINER_VALUES.DEFAULT,
+      SecurityHelpers.sanitiseHTML(`${props.value}`)
+    );
   }
 }
 
-// Article
-// Aside
 // Container
-// Figure
-// Footer
-// Grid
-// Header
-// Heading Group
-function HeadingGroup(props) {
+function Container(props) {
   try {
-    props instanceof DEFAULT_PROPERTIES
-      ? (this.props = props)
-      : (this.props = new DEFAULT_PROPERTIES(props));
-    return `<hgroup ${this.props.id} ${this.props.class} ${this.props.title} ${
-      this.props.language
-    } ${this.props.direction} ${combineStyles(
-      this.props.styleList,
-      this.props.style
-    )}>${this.props.content}</hgroup>`;
+    props === undefined ? (props = {}) : null;
+    if (typeof props === "object" || props instanceof Object) {
+      props instanceof LAYOUT_PROPERTIES
+        ? (this.props = props)
+        : (this.props = new LAYOUT_PROPERTIES(props));
+      return `<${this.props.variant} ${StringHelpers.combineStrings([
+        this.props.id,
+        this.props.class,
+        this.props.title,
+        this.props.language,
+        this.props.direction,
+        StyleHelpers.combineStyles(this.props.styleList, this.props.style),
+      ])}>${this.props.content}</${this.props.variant}>`;
+    } else {
+      throw new TypeError(`${props} on Container is not a valid Object type.`);
+    }
   } catch (e) {
     console.error(e);
   }
 }
 
-// Item
-// Main
-// Nav
-// Section
-// ?Hidden (maybe attribute)
-// ?Color Section (maybe attribute)
+// Figure Properties
+class FIGURE_PROPERTIES extends LAYOUT_PROPERTIES {
+  constructor(props) {
+    super(props);
+    // caption
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "caption",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(`<figcaption>${props.download}</figcaption>`)
+    );
+  }
+}
+
+// Figure
+function Figure(props) {
+  try {
+    props === undefined ? (props = {}) : null;
+    if (typeof props === "object" || props instanceof Object) {
+      props instanceof FIGURE_PROPERTIES
+        ? (this.props = props)
+        : (this.props = new FIGURE_PROPERTIES(props));
+      return `<figure ${StringHelpers.combineStrings([
+        this.props.id,
+        this.props.class,
+        this.props.title,
+        this.props.language,
+        this.props.direction,
+        StyleHelpers.combineStyles(this.props.styleList, this.props.style),
+      ])}>${this.props.content}${this.props.caption}</figure>`;
+    } else {
+      throw new TypeError(`${props} on Figure is not a valid Object type.`);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Grid Properties
+class GRID_PROPERTIES extends LAYOUT_PROPERTIES {
+  constructor(props) {
+    super(props);
+  }
+}
+// Grid
+function Grid(props) {
+  try {
+    props === undefined ? (props = {}) : null;
+    if (typeof props === "object" || props instanceof Object) {
+      props instanceof FIGURE_PROPERTIES
+        ? (this.props = props)
+        : (this.props = new FIGURE_PROPERTIES(props));
+      return `<div ${StringHelpers.combineStrings([
+        this.props.id,
+        this.props.class,
+        this.props.title,
+        this.props.language,
+        this.props.direction,
+        StyleHelpers.combineStyles(this.props.styleList, this.props.style),
+      ])}>${this.props.content}</div>`;
+    } else {
+      throw new TypeError(`${props} on Figure is not a valid Object type.`);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 // Export Layout
 module.exports = {
-  Address,
-  HeadingGroup,
+  LAYOUT_PROPERTIES,
+  CONTAINER_VALUES,
+  CONTAINER_PROPERTIES,
+  Container,
+  FIGURE_PROPERTIES,
+  Figure,
+  GRID_PROPERTIES,
+  Grid,
 };

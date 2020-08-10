@@ -37,6 +37,7 @@ const PRIMATIVES = {
   OBJECT: "object",
   BOOLEAN: "boolean",
   STRING: "string",
+  ARRAY: "array",
 };
 Object.freeze(PRIMATIVES);
 
@@ -49,6 +50,8 @@ function validatePrimative(property, type) {
       return typeof property === "boolean" || property instanceof Boolean;
     case "string":
       return typeof property === "string" || property instanceof String;
+    case "array":
+      return Array.isArray(property);
     default:
       return false;
   }

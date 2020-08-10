@@ -5,79 +5,108 @@
  *    Licensed under MIT (https://github.com/Niten001/windlass/blob/master/LICENSE)
  *  ---------------------------------------------------------------------------  */
 
+const {
+  SecurityHelpers,
+  StringHelpers,
+  StyleHelpers,
+  TypeHelpers,
+} = require("../../utilities").Server;
+
 class DEFAULT_TEMPLATE_PROPERTIES {
   constructor(props) {
     // content
-    try {
-      if (props.content === undefined) {
-        this.content = "";
-      } else if (
-        typeof props.content === "string" ||
-        props.content instanceof String
-      ) {
-        this.content = String.raw`${props.content}`;
-      } else {
-        throw new TypeError(
-          `${props.content} on DEFAULT_TEMPLATE_PROPERTIES.content is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(`${e.name}: ${e.message}`);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "content",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      String.raw`${props.content}`
+    );
 
     // description
-    try {
-      if (props.description === undefined) {
-        this.description = "";
-      } else if (
-        typeof props.description === "string" ||
-        props.description instanceof String
-      ) {
-        this.description = props.description;
-      } else {
-        throw new TypeError(
-          `${props.description} on DEFAULT_TEMPLATE_PROPERTIES.description is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(`${e.name}: ${e.message}`);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "description",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(props.description)
+    );
+
+    // head
+    TypeHelpers.typeCheckPrimative(
+      this,
+      title,
+      "head",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(props.head)
+    );
+
+    // inlineStylesheet
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "inlineStylesheet",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(
+        SecurityHelpers.sanitiseCSS(
+          `<style>${this.props.inlineStylesheet}</style>`
+        )
+      )
+    );
 
     // lang
-    try {
-      if (props.lang === undefined) {
-        this.lang = "en";
-      } else if (
-        typeof props.lang === "string" ||
-        props.lang instanceof String
-      ) {
-        this.lang = props.lang;
-      } else {
-        throw new TypeError(
-          `${props.lang} on DEFAULT_TEMPLATE_PROPERTIES.lang is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(`${e.name}: ${e.message}`);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "lang",
+      TypeHelpers.PRIMATIVES.STRING,
+      "en",
+      SecurityHelpers.sanitiseHTML(props.lang)
+    );
+
+    // linkedScripts
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "linkedScripts",
+      TypeHelpers.PRIMATIVES.ARRAY,
+      "",
+      props.linkedScripts
+        .map((url) => {
+          return `<script src="${SecurityHelpers.sanitiseHTML(url)}"></script>`;
+        })
+        .join("\n")
+    );
+
+    // linkedStylesheets
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "linkedStylesheets",
+      TypeHelpers.PRIMATIVES.ARRAY,
+      "",
+      props.linkedStylesheets
+        .map((url) => {
+          return `<link rel="stylesheet" href="${SecurityHelpers.sanitiseHTML(
+            url
+          )}" media="print" onload="this.media='all'"></link>`;
+        })
+        .join("\n")
+    );
 
     // title
-    try {
-      if (props.title === undefined) {
-        this.title = "";
-      } else if (
-        typeof props.title === "string" ||
-        props.title instanceof String
-      ) {
-        this.title = props.title;
-      } else {
-        throw new TypeError(
-          `${props.title} on DEFAULT_TEMPLATE_PROPERTIES.title is not a valid String type.`
-        );
-      }
-    } catch (e) {
-      console.error(`${e.name}: ${e.message}`);
-    }
+    TypeHelpers.typeCheckPrimative(
+      this,
+      title,
+      "lang",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(props.title)
+    );
   }
 }
 
@@ -96,8 +125,14 @@ function DefaultTemplate(props) {
                 <meta name="description" content="${this.props.description}" />
                 <meta name="title" content="${this.props.title}" />
                 <title>${this.props.title}</title>
+                ${this.props.linkedStylesheets}
+                ${this.props.inlineStylesheet}
+                ${this.props.head}
             </head>
-            <body>${this.props.content}</body>
+            <body>
+              ${this.props.content}
+              ${this.props.linkedScripts}
+            </body>
         </html>
       `;
     } else {
