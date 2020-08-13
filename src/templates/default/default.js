@@ -5,12 +5,7 @@
  *    Licensed under MIT (https://github.com/Niten001/windlass/blob/master/LICENSE)
  *  ---------------------------------------------------------------------------  */
 
-const {
-  SecurityHelpers,
-  StringHelpers,
-  StyleHelpers,
-  TypeHelpers,
-} = require("../../utilities").Server;
+const { SecurityHelpers, TypeHelpers } = require("../../utilities").Server;
 
 class DEFAULT_TEMPLATE_PROPERTIES {
   constructor(props) {
@@ -37,11 +32,21 @@ class DEFAULT_TEMPLATE_PROPERTIES {
     // head
     TypeHelpers.typeCheckPrimative(
       this,
-      title,
+      props,
       "head",
       TypeHelpers.PRIMATIVES.STRING,
       "",
       SecurityHelpers.sanitiseHTML(props.head)
+    );
+
+    // icon
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "icon",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(props.icon)
     );
 
     // inlineStylesheet
@@ -52,9 +57,7 @@ class DEFAULT_TEMPLATE_PROPERTIES {
       TypeHelpers.PRIMATIVES.STRING,
       "",
       SecurityHelpers.sanitiseHTML(
-        SecurityHelpers.sanitiseCSS(
-          `<style>${this.props.inlineStylesheet}</style>`
-        )
+        SecurityHelpers.sanitiseCSS(`<style>${props.inlineStylesheet}</style>`)
       )
     );
 
@@ -76,10 +79,6 @@ class DEFAULT_TEMPLATE_PROPERTIES {
       TypeHelpers.PRIMATIVES.ARRAY,
       "",
       props.linkedScripts
-        .map((url) => {
-          return `<script src="${SecurityHelpers.sanitiseHTML(url)}"></script>`;
-        })
-        .join("\n")
     );
 
     // linkedStylesheets
@@ -90,19 +89,13 @@ class DEFAULT_TEMPLATE_PROPERTIES {
       TypeHelpers.PRIMATIVES.ARRAY,
       "",
       props.linkedStylesheets
-        .map((url) => {
-          return `<link rel="stylesheet" href="${SecurityHelpers.sanitiseHTML(
-            url
-          )}" media="print" onload="this.media='all'"></link>`;
-        })
-        .join("\n")
     );
 
     // title
     TypeHelpers.typeCheckPrimative(
       this,
-      title,
-      "lang",
+      props,
+      "title",
       TypeHelpers.PRIMATIVES.STRING,
       "",
       SecurityHelpers.sanitiseHTML(props.title)
@@ -125,13 +118,34 @@ function DefaultTemplate(props) {
                 <meta name="description" content="${this.props.description}" />
                 <meta name="title" content="${this.props.title}" />
                 <title>${this.props.title}</title>
-                ${this.props.linkedStylesheets}
+                <link rel="icon" href="${this.props.icon}" />
+                ${
+                  this.props.linkedStylesheets
+                    ? this.props.linkedStylesheets
+                        .map((url) => {
+                          return `<link rel="stylesheet" type="text/css" href="${SecurityHelpers.sanitiseHTML(
+                            url
+                          )}" media="print" onload="this.media='all'"></link>`;
+                        })
+                        .join("\n")
+                    : ``
+                }
                 ${this.props.inlineStylesheet}
                 ${this.props.head}
             </head>
             <body>
               ${this.props.content}
-              ${this.props.linkedScripts}
+              ${
+                this.props.linkedScripts
+                  ? this.props.linkedScripts
+                      .map((url) => {
+                        return `<script type="module" src="${SecurityHelpers.sanitiseHTML(
+                          url
+                        )}"></script>`;
+                      })
+                      .join("\n")
+                  : ``
+              }
             </body>
         </html>
       `;

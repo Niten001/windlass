@@ -8,7 +8,8 @@ function combineStyles(styleList, overrideStyle) {
       if (
         styleList.some((style) => {
           return typeof style === "string" || style instanceof String;
-        })
+        }) ||
+        overrideStyle
       ) {
         return `style="${combineStrings(styleList)}${
           overrideStyle ? ` ${overrideStyle}` : ""

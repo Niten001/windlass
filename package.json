@@ -11,7 +11,8 @@
   "scripts": {
     "lint": "eslint --ext js .",
     "lint:fix": "yarn lint --fix",
-    "test": "jest --collectCoverage"
+    "test": "jest --collectCoverage",
+    "build:win": "Xcopy /E /I /Y \"./src\" \"./dist\""
   },
   "author": "Timothy Martin",
   "license": "MIT",
@@ -19,5 +20,8 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4"
+  },
+  "dependencies": {
+    "prettier": "^2.0.5"
   }
 }

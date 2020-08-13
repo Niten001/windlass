@@ -21,11 +21,30 @@ function sanitiseHTML(html) {
     if (html === undefined) {
       return "";
     } else if (typeof html === "string" || html instanceof String) {
-      return html;
+      return [...html]
+        .map((char) => {
+          return char === encodeURI(char) ? char : `&#${char.charCodeAt(0)};`;
+        })
+        .join("");
     } else {
       throw new TypeError(
-        `${css} on sanitiseCSS() is not a valid String type.`
+        `${html} on sanitiseHTML() is not a valid String type.`
       );
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Sanitise JS
+function sanitiseJS(js) {
+  try {
+    if (js === undefined) {
+      return "";
+    } else if (typeof js === "string" || js instanceof String) {
+      return js;
+    } else {
+      throw new TypeError(`${css} on sanitiseJS() is not a valid String type.`);
     }
   } catch (e) {
     console.error(e);
@@ -35,4 +54,5 @@ function sanitiseHTML(html) {
 module.exports = {
   sanitiseCSS,
   sanitiseHTML,
+  sanitiseJS,
 };

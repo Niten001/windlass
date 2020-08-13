@@ -8,15 +8,18 @@
 // Imports
 const {
   ALIGN_VALUES,
+  MARGIN_VALUES,
+  PADDING_VALUES,
   WIDTH_VALUES,
+  ZINDEX_VALUES,
   DEFAULT_PROPERTIES,
-} = require("../default/default");
+} = require("../default");
 const {
   SecurityHelpers,
   StringHelpers,
   StyleHelpers,
   TypeHelpers,
-} = require("../../utilities/utilities").Server;
+} = require("../../utilities").Server;
 
 // Layout
 // Layout Properties
@@ -30,7 +33,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "align",
       ALIGN_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`align: ${props.align};`)
+      `align: ${SecurityHelpers.sanitiseCSS(props.align)};`
     );
 
     // color
@@ -39,7 +42,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       props,
       "color",
       undefined,
-      SecurityHelpers.sanitiseCSS(`background-color: ${props.color};`)
+      `background-color: ${SecurityHelpers.sanitiseCSS(props.color)};`
     );
 
     // border
@@ -49,9 +52,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "border",
       TypeHelpers.PRIMATIVES.BOOLEAN,
       undefined,
-      SecurityHelpers.sanitiseCSS(
-        props.border ? `border: solid 1px currentcolor;` : ``
-      )
+      props.border ? `border: solid 1px currentcolor;` : ``
     );
 
     // fluid
@@ -61,13 +62,9 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "fluid",
       TypeHelpers.PRIMATIVES.BOOLEAN,
       false,
-      SecurityHelpers.sanitiseCSS(
-        `${
-          props.fluid
-            ? `width: 100%;`
-            : `min-width: ${WIDTH_VALUES.EXTRA_SMALL}; width: fit-content(100%);`
-        };`
-      )
+      props.fluid
+        ? `width: 100%;`
+        : `min-width: ${WIDTH_VALUES.EXTRA_SMALL}; width: fit-content(100%);`
     );
 
     // margin
@@ -77,7 +74,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "margin",
       MARGIN_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`margin: ${props.margin};`)
+      `margin: ${SecurityHelpers.sanitiseCSS(props.margin)};`
     );
 
     // maxWidth
@@ -87,7 +84,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "maxWidth",
       WIDTH_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`max-width: ${props.maxWidth};`)
+      `max-width: ${SecurityHelpers.sanitiseCSS(props.maxWidth)};`
     );
 
     // padding
@@ -97,7 +94,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "padding",
       PADDING_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`padding: ${props.padding};`)
+      `padding: ${SecurityHelpers.sanitiseCSS(props.padding)};`
     );
 
     // visibility
@@ -107,9 +104,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "visibility",
       TypeHelpers.PRIMATIVES.BOOLEAN,
       false,
-      SecurityHelpers.sanitiseCSS(
-        props.visibility ? `visibility: visible;` : `visibility: hidden;`
-      )
+      props.visibility ? `visibility: visible;` : `visibility: hidden;`
     );
 
     // zIndex
@@ -119,7 +114,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "zIndex",
       ZINDEX_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`z-index: ${props.zIndex};`)
+      `z-index: ${SecurityHelpers.sanitiseCSS(props.zIndex)};`
     );
 
     // styleList
@@ -163,7 +158,7 @@ class CONTAINER_PROPERTIES extends LAYOUT_PROPERTIES {
       "variant",
       CONTAINER_VALUES,
       CONTAINER_VALUES.DEFAULT,
-      SecurityHelpers.sanitiseHTML(`${props.value}`)
+      SecurityHelpers.sanitiseHTML(props.variant)
     );
   }
 }
@@ -173,9 +168,9 @@ function Container(props) {
   try {
     props === undefined ? (props = {}) : null;
     if (typeof props === "object" || props instanceof Object) {
-      props instanceof LAYOUT_PROPERTIES
+      props instanceof CONTAINER_PROPERTIES
         ? (this.props = props)
-        : (this.props = new LAYOUT_PROPERTIES(props));
+        : (this.props = new CONTAINER_PROPERTIES(props));
       return `<${this.props.variant} ${StringHelpers.combineStrings([
         this.props.id,
         this.props.class,
@@ -203,7 +198,7 @@ class FIGURE_PROPERTIES extends LAYOUT_PROPERTIES {
       "caption",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(`<figcaption>${props.download}</figcaption>`)
+      SecurityHelpers.sanitiseHTML(`<figcaption>${props.caption}</figcaption>`)
     );
   }
 }
@@ -243,9 +238,9 @@ function Grid(props) {
   try {
     props === undefined ? (props = {}) : null;
     if (typeof props === "object" || props instanceof Object) {
-      props instanceof FIGURE_PROPERTIES
+      props instanceof GRID_PROPERTIES
         ? (this.props = props)
-        : (this.props = new FIGURE_PROPERTIES(props));
+        : (this.props = new GRID_PROPERTIES(props));
       return `<div ${StringHelpers.combineStrings([
         this.props.id,
         this.props.class,
@@ -255,7 +250,31 @@ function Grid(props) {
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</div>`;
     } else {
-      throw new TypeError(`${props} on Figure is not a valid Object type.`);
+      throw new TypeError(`${props} on Grid is not a valid Object type.`);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Seperator
+function Seperator(props) {
+  try {
+    props === undefined ? (props = {}) : null;
+    if (typeof props === "object" || props instanceof Object) {
+      props instanceof LAYOUT_PROPERTIES
+        ? (this.props = props)
+        : (this.props = new LAYOUT_PROPERTIES(props));
+      return `<hr ${StringHelpers.combineStrings([
+        this.props.id,
+        this.props.class,
+        this.props.title,
+        this.props.language,
+        this.props.direction,
+        StyleHelpers.combineStyles(this.props.styleList, this.props.style),
+      ])}>${this.props.content}</hr>`;
+    } else {
+      throw new TypeError(`${props} on Seperator is not a valid Object type.`);
     }
   } catch (e) {
     console.error(e);
@@ -272,4 +291,5 @@ module.exports = {
   Figure,
   GRID_PROPERTIES,
   Grid,
+  Seperator,
 };

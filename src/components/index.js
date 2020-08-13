@@ -9,16 +9,16 @@
 const Alert = require("./alert/alert");
 const Badge = require("./badge/badge");
 const Color = require("./color/color");
-const Default = require("./default/default");
-const Input = require("./input/input");
-const Layout = require("./layout/layout");
+const Default = require("./default");
+const Inputs = require("./inputs");
+const Layout = require("./layout/index.js");
 const Media = require("./media/media");
 const Nav = require("./nav/nav");
 const Progress = require("./progress/progress");
 const Spinner = require("./spinner/spinner");
 const Toast = require("./toast/toast");
 const Tooltip = require("./tooltip/tooltip");
-const Typography = require("./typography/typography");
+const Typography = require("./typography");
 
 // Export Components
 const Components = {
@@ -26,7 +26,7 @@ const Components = {
   Badge,
   Color,
   Default,
-  Input,
+  Inputs,
   Layout,
   Media,
   Nav,

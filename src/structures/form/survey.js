@@ -1,64 +1,33 @@
-const surveyQuestions = require("./surveyData.js").surveyQuestions;
+const { Container, Seperator } = require("../../components").Layout;
+const Text = require("../../components").Typography.Text;
+const surveyQuestions = require("./surveyData").surveyQuestions;
 
-class SurveyRadioButtons {
-  constructor(questionNumber) {
-    this.questionNumber = questionNumber;
-  }
-
-  render() {
-    return (
-      `
-            <input type="radio" class="radio-button" name="surveyQ` +
-      this.questionNumber +
-      `"/>
-            <label class="radio-button" for=surveyQ` +
-      this.questionNumber +
-      `">Agree</label>
-            <input type="radio" class="radio-button" name="surveyQ` +
-      this.questionNumber +
-      `" checked/>
-            <label class="radio-button" for=surveyQ` +
-      this.questionNumber +
-      `">Neutral</label>
-            <input type="radio" class="radio-button" name="surveyQ` +
-      this.questionNumber +
-      `"/>
-            <label class="radio-button" for=surveyQ` +
-      this.questionNumber +
-      `">Disagree</label>
-        `
-    );
-  }
+function SurveyRadioButtons(questionNumber) {
+  return `<input type="radio" class="radio-button" name="surveyQ${questionNumber}"/>
+    <label class="radio-button" for=surveyQ${questionNumber}">Agree</label>
+    <input type="radio" class="radio-button" name="surveyQ${questionNumber}" checked/>
+    <label class="radio-button" for=surveyQ${questionNumber}">Neutral</label>
+    <input type="radio" class="radio-button" name="surveyQ${questionNumber}"/>
+    <label class="radio-button" for=surveyQ${questionNumber}">Disagree</label>
+    <input type="radio" class="radio-button" name="surveyQ${questionNumber}"/>`;
 }
 
-module.exports = class SurveyQuestions {
-  constructor() {}
-
-  render() {
-    let surveyQuestionsHTML = "";
-    for (let i = 0; i < surveyQuestions.length; i++) {
-      const surveyRadioButtons = new SurveyRadioButtons(i);
-      surveyQuestionsHTML +=
-        `
-                <div><p>` +
-        surveyQuestions[i].question +
-        `</p>
-                    ` +
-        surveyRadioButtons.render() +
-        `
-                </div>
-                <div class="seperator"></div>
-            `;
-    }
-
-    return (
-      `
-            <div class="survey-container">
-                ` +
-      surveyQuestionsHTML +
-      `
-            </div>
-        `
-    );
-  }
+module.exports = function SurveyQuestions() {
+  return Container({
+    class: "survey-container",
+    content: surveyQuestions
+      .map((surveyQuestion, i) => {
+        return Container({
+          content: [
+            Text({
+              paragraph: true,
+              content: surveyQuestion.question,
+            }),
+            SurveyRadioButtons(i),
+            Seperator(),
+          ].join("\n"),
+        });
+      })
+      .join("\n"),
+  });
 };

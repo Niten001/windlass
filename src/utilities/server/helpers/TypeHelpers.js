@@ -9,6 +9,7 @@ function typeCheckColor(object, props, property, defaultValue, outputValue) {
       Object.defineProperty(object, property, {
         value: defaultValue,
         enumerable: true,
+        writable: true,
       });
     } else if (
       isValidColor(
@@ -18,11 +19,13 @@ function typeCheckColor(object, props, property, defaultValue, outputValue) {
       Object.defineProperty(object, property, {
         value: outputValue,
         enumerable: true,
+        writable: true,
       });
     } else {
       Object.defineProperty(object, property, {
         value: defaultValue,
         enumerable: true,
+        writable: true,
       });
       throw new TypeError(
         `${property} on ${object.constructor.name}.${property} is not a valid COLOR type.`
@@ -38,6 +41,7 @@ const PRIMATIVES = {
   BOOLEAN: "boolean",
   STRING: "string",
   ARRAY: "array",
+  NUMBER: "number",
 };
 Object.freeze(PRIMATIVES);
 
@@ -52,6 +56,8 @@ function validatePrimative(property, type) {
       return typeof property === "string" || property instanceof String;
     case "array":
       return Array.isArray(property);
+    case "number":
+      return typeof property === "number" || property instanceof Number;
     default:
       return false;
   }
@@ -73,6 +79,7 @@ function typeCheckPrimative(
       Object.defineProperty(object, property, {
         value: defaultValue,
         enumerable: true,
+        writable: true,
       });
     } else if (
       validatePrimative(
@@ -83,11 +90,13 @@ function typeCheckPrimative(
       Object.defineProperty(object, property, {
         value: outputValue,
         enumerable: true,
+        writable: true,
       });
     } else {
       Object.defineProperty(object, property, {
         value: defaultValue,
         enumerable: true,
+        writable: true,
       });
       throw new TypeError(
         `${property} on ${object.constructor.name}.${property} is not a valid ${type} type.`
@@ -114,6 +123,7 @@ function typeCheckValue(
       Object.defineProperty(object, property, {
         value: defaultValue,
         enumerable: true,
+        writable: true,
       });
     } else if (
       Object.values(type).includes(
@@ -123,11 +133,13 @@ function typeCheckValue(
       Object.defineProperty(object, property, {
         value: outputValue,
         enumerable: true,
+        writable: true,
       });
     } else {
       Object.defineProperty(object, property, {
         value: defaultValue,
         enumerable: true,
+        writable: true,
       });
       throw new TypeError(
         `${property} on ${object.constructor.name}.${property} is not a valid ${type} type.`

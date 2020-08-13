@@ -6,11 +6,11 @@
  *  ---------------------------------------------------------------------------  */
 
 // Imports
-const Components = require("./components/components");
-const Extensions = require("./extensions/extensions");
-const Structures = require("./structures/structures");
-const Templates = require("./templates/templates");
-const Utilities = require("./utilities/utilities");
+const Components = require("./components");
+const Extensions = require("./extensions");
+const Structures = require("./structures");
+const Templates = require("./templates");
+const Utilities = require("./utilities");
 
 // Export Windlass
 const Windlass = {

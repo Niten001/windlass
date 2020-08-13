@@ -13,13 +13,13 @@ const {
   ALIGN_VALUES,
   DEFAULT_PROPERTIES,
   TRANSFORM_VALUES,
-} = require("../default/default");
+} = require("../default");
 const {
   SecurityHelpers,
   StringHelpers,
   StyleHelpers,
   TypeHelpers,
-} = require("../../utilities/utilities").Server;
+} = require("../../utilities").Server;
 
 // [wl_aWVfK] Typography Properties
 class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
@@ -32,7 +32,7 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
       "align",
       ALIGN_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`text-align: ${props.align};`)
+      `text-align: ${SecurityHelpers.sanitiseCSS(props.align)};`
     );
 
     // color
@@ -41,7 +41,7 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
       props,
       "color",
       undefined,
-      SecurityHelpers.sanitiseCSS(`color: ${props.color};`)
+      `color: ${SecurityHelpers.sanitiseCSS(props.color)};`
     );
 
     // noWrap
@@ -73,7 +73,7 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
       "transform",
       TRANSFORM_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`text-transform: ${props.transform};`)
+      `text-transform: ${SecurityHelpers.sanitiseCSS(props.transform)};`
     );
 
     // styleList
@@ -115,7 +115,7 @@ class TEXT_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "variant",
       TEXT_VALUES,
       TEXT_VALUES.DEFAULT,
-      props.variant
+      `${SecurityHelpers.sanitiseHTML(props.variant)}`
     );
   }
 }
@@ -136,6 +136,7 @@ function Text(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</${this.props.variant}>${
         this.props.paragraph ? "</p>" : ""
@@ -171,7 +172,7 @@ class HEADING_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "variant",
       HEADING_VALUES,
       HEADING_VALUES.DEFAULT,
-      props.variant
+      `${SecurityHelpers.sanitiseHTML(props.variant)}`
     );
   }
 }
@@ -184,7 +185,7 @@ function Heading(props) {
       props instanceof HEADING_PROPERTIES
         ? (this.props = props)
         : (this.props = new HEADING_PROPERTIES(props));
-      return `${this.paragraph ? "<p>" : ""}<${
+      return `${this.props.paragraph ? "<p>" : ""}<${
         this.props.variant
       } ${StringHelpers.combineStrings([
         this.props.id,
@@ -192,9 +193,10 @@ function Heading(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</${this.props.variant}>${
-        this.paragraph ? "</p>" : ""
+        this.props.paragraph ? "</p>" : ""
       }`;
     } else {
       throw new TypeError(`${props} on Heading is not a valid Object type.`);
@@ -233,7 +235,7 @@ class LINK_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "download",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(`download="${props.download}"`)
+      `download="${SecurityHelpers.sanitiseHTML(props.download)}"`
     );
 
     // link
@@ -243,7 +245,7 @@ class LINK_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "link",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(`href="${props.link}"`)
+      `href="${SecurityHelpers.sanitiseHTML(props.link)}"`
     );
 
     // value
@@ -253,7 +255,7 @@ class LINK_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "value",
       LINK_VALUES,
       "",
-      SecurityHelpers.sanitiseHTML(`rel="${props.value}"`)
+      `rel="${SecurityHelpers.sanitiseHTML(props.value)}"`
     );
   }
 }
@@ -266,17 +268,21 @@ function Link(props) {
       props instanceof LINK_PROPERTIES
         ? (this.props = props)
         : (this.props = new LINK_PROPERTIES(props));
-      return `${this.paragraph ? "<p>" : ""}<a ${StringHelpers.combineStrings([
+      return `${
+        this.props.paragraph ? "<p>" : ""
+      }<a ${StringHelpers.combineStrings([
         this.props.id,
         this.props.class,
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         this.props.value,
         this.props.download,
         this.props.link,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
-      ])}>${this.props.content}</a>${this.paragraph ? "</p>" : ""}`;
+      ])}>${this.props.content}</a>${this.props.paragraph ? "</p>" : ""}`;
     } else {
       throw new TypeError(`${props} on Link is not a valid Object type.`);
     }
@@ -296,7 +302,7 @@ class QUOTE_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "source",
       string,
       "",
-      SecurityHelpers.sanitiseHTML(`cite="${props.source}"`)
+      `cite="${SecurityHelpers.sanitiseHTML(props.source)}"`
     );
   }
 }
@@ -315,6 +321,7 @@ function Quote(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         this.props.source,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</q>`;
@@ -340,6 +347,7 @@ function Blockquote(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         this.props.source,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</blockquote>`;
@@ -365,6 +373,7 @@ function Cite(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</cite>`;
     } else {
@@ -389,6 +398,7 @@ function Code(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</code>`;
     } else {
@@ -413,6 +423,7 @@ function CodeBlock(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}><code>${this.props.content}</code></pre>`;
     } else {
@@ -437,6 +448,7 @@ function Keyboard(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</kbd>`;
     } else {
@@ -461,6 +473,7 @@ function Output(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</samp>`;
     } else {
@@ -485,6 +498,7 @@ function Variable(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</var>`;
     } else {
@@ -535,7 +549,7 @@ class LIST_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "value",
       LIST_VALUES,
       "",
-      SecurityHelpers.sanitiseCSS(`list-style-type: ${props.value};`)
+      `list-style-type: ${SecurityHelpers.sanitiseCSS(props.value)};`
     );
 
     // styleList
@@ -557,6 +571,7 @@ function UnorderedList(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         this.props.value,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</ul>`;
@@ -584,6 +599,7 @@ function OrderedList(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         this.props.value,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</ul>`;
@@ -611,6 +627,7 @@ function ListItem(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         this.props.value,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</li>`;
@@ -638,6 +655,7 @@ function DescriptiveList(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</dl>`;
     } else {
@@ -664,6 +682,7 @@ function DescriptiveDetails(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</dd>`;
     } else {
@@ -690,6 +709,7 @@ function DescriptiveTerm(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.tabIndex,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</dt>`;
     } else {
